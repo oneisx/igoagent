@@ -30,7 +30,7 @@ func initTray() {
     var item []trayhost.MenuItem
     item = append(item, trayhost.MenuItem{Title: "Open Igo", Enabled: enabled, Handler: OpenIgo})
     item = append(item, trayhost.MenuItem{Title: "Exit Agent", Enabled: enabled, Handler: trayhost.Exit})
-    trayhost.Initialize("igo agent", ico, item)
+    trayhost.Initialize("Igo Agent", ico, item)
     trayhost.EnterLoop()
 }
 
