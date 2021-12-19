@@ -26,10 +26,10 @@ func registerHotKey() {
 }
 
 func initTray() {
-    ico, _ := ioutil.ReadFile("D:\\igoagent\\ico\\igo.ico")
+    ico, _ := ioutil.ReadFile("ico/igo.ico")
     var item []trayhost.MenuItem
-    item = append(item, trayhost.MenuItem{Title: "open igo", Enabled: enabled, Handler: OpenIgo})
-    item = append(item, trayhost.MenuItem{Title: "exit", Enabled: enabled, Handler: trayhost.Exit})
+    item = append(item, trayhost.MenuItem{Title: "Open Igo", Enabled: enabled, Handler: OpenIgo})
+    item = append(item, trayhost.MenuItem{Title: "Exit Agent", Enabled: enabled, Handler: trayhost.Exit})
     trayhost.Initialize("igo agent", ico, item)
     trayhost.EnterLoop()
 }

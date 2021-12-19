@@ -11,7 +11,7 @@ func FirstLaunch() {
         Title: "First start reminder",
         Message: "Igo agent start successful!",
         Audio: toast.Reminder,
-        Icon: "D:\\igoagent\\ico\\igo.ico", // This file must exist (remove this line if it doesn't)
+        Icon: "ico/igo.ico", // This file must exist (remove this line if it doesn't)
         Actions: []toast.Action{
             {"protocol", "Star Igo", "https://github.com/oneisx/igo"},
             {"protocol", "For Help", "https://github.com/oneisx/igoagent"},
