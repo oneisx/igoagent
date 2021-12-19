@@ -11,7 +11,6 @@ const (
     windows          = "windows"
     winOSCommand     = "cmd.exe"
     winCommandOption = "/c"
-    winClearCommand  = "cls"
     
     linux              = "linux"
     linuxOSCommand     = "/bin/bash"
@@ -21,11 +20,9 @@ const (
     macOSCommand       = "/usr/bin/open"
     macOSCommandOption = "-a"
     
-    ClearCommand = "clear"
 )
 
 type OperationSystem interface {
-    ClearScreen()
     ExecOSCmd(command string)
 }
 
@@ -34,21 +31,6 @@ type Windows struct{}
 type Linux struct{}
 
 type MacOS struct{}
-
-func (windows *Windows) ClearScreen() {
-    cmd := buildWindowsCmd(winClearCommand)
-    doExecOSCmd(cmd)
-}
-
-func (linux *Linux) ClearScreen() {
-    cmd := buildLinuxCmd(ClearCommand)
-    doExecOSCmd(cmd)
-}
-
-func (macos *MacOS) ClearScreen() {
-    cmd := buildMacOSCmd(ClearCommand)
-    doExecOSCmd(cmd)
-}
 
 func (windows *Windows) ExecOSCmd(command string) {
     cmd := buildWindowsCmd(command)
@@ -80,22 +62,9 @@ func chooseOS() OperationSystem {
     return nil
 }
 
-func ClearScreen() {
-    operationSystem := chooseOS()
-    operationSystem.ClearScreen()
-}
-
 func ExecOSCmd(command string) {
     operationSystem := chooseOS()
     operationSystem.ExecOSCmd(command)
-}
-
-func RemoveLineBreak(str string) string {
-    var lineBreakLength = 1
-    if runtime.GOOS == windows {
-        lineBreakLength = 2
-    }
-    return str[:len(str)-lineBreakLength]
 }
 
 func buildMacOSCmd(command string) *exec.Cmd {
@@ -114,9 +83,6 @@ func buildWindowsCmd(command string) *exec.Cmd {
 }
 
 func doExecOSCmd(cmd *exec.Cmd) bool {
-    //显示运行的命令
-    //fmt.Println(cmd.Args)
-    
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
     err := cmd.Run()
