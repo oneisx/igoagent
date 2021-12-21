@@ -29,9 +29,20 @@ func initTray() {
     ico, _ := ioutil.ReadFile("ico/igo.ico")
     var item []trayhost.MenuItem
     item = append(item, trayhost.MenuItem{Title: "Open Igo", Enabled: enabled, Handler: OpenIgo})
+    item = append(item, trayhost.MenuItem{Title: "Update Igo", Enabled: enabled, Handler: OpenIgo})
+    item = append(item, trayhost.MenuItem{Title: "PowerBoot: ON", Enabled: powerBootOff, Handler: OpenIgo})
+    item = append(item, trayhost.MenuItem{Title: "PowerBoot: OFF", Enabled: powerBootOn, Handler: OpenIgo})
     item = append(item, trayhost.MenuItem{Title: "Exit Agent", Enabled: enabled, Handler: trayhost.Exit})
     trayhost.Initialize("Igo Agent", ico, item)
     trayhost.EnterLoop()
+}
+
+func powerBootOn() bool {
+    return util.GetYaml("PowerBoot").(bool)
+}
+
+func powerBootOff() bool {
+    return !powerBootOn()
 }
 
 func enabled() bool {
